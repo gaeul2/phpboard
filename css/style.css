@@ -1,0 +1,76 @@
+@charset "utf-8";
+
+/* 메인페이지 css */
+#status{
+    margin-top: 40px;
+}
+.list-table{
+    width : 900px;
+}
+.list-table thead th{
+    height:40px;
+    border-top:2px solid rgb(59, 167, 163);
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.list-table tbody td{
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc; height : 20px;
+    font-size: 14px;
+}
+.btn{
+    margin-top: 20px;
+
+}
+/* 테이블안의 요소들 간격 */
+.num {
+    width: 50px;
+}
+
+.category {
+    width: 80px;
+}
+
+.title {
+    width: 150px;
+}
+
+.file {
+    width: 50px;
+}
+
+.date {
+    width: 100px;
+}
+
+.writer {
+    width: 100px;
+}
+
+.hit {
+    width: 80px;
+}
+.test{
+    margin-top : 50px;
+    color:red;
+}
+
+/* 조회페이지 css */
+.list-table-for-read-and-update{
+    width : 900px;
+}
+
+.list-table-for-read-and-update{
+    border: 1px solid rgb(0, 0, 0);
+    border-block: 1px solid rgb(0, 0, 0);
+}
+
+.list-table-for-read-and-update tr th{
+    height:40px;
+    font-weight: bold;
+    font-size: 17px;
+    width: 100px;
+}
