@@ -1,6 +1,27 @@
 @charset "utf-8";
 
 /* 메인페이지 css */
+.container{
+    margin: 5% auto;
+    width: 1200px;
+}
+.search-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    background-color: aliceblue;
+    width: 1200px;
+    border-radius: 20px 20px;
+    border: 2px solid rgba(55, 134, 134, 0.628);
+}
+.search-box input{
+    width : 200px;
+    height : 20px;
+    margin-left: 10px;
+    margin-right:10px;
+    /* margin-top: 20px; */
+}
 #status{
     margin-top: 40px;
 }

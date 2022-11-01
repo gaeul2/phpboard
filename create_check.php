@@ -88,13 +88,13 @@ function process_form($validate_input, $mode){
                     userfile = '$userfile',
                     created_date = '$datetime'";
         mysqli_query($conn, $sql);
-        mysqli_close($conn);
         ?>
         <script>
             alert("게시글이 등록되었습니다.");
             location.replace("./index.php");
         </script>
     <?php } else { // update일때 
+        var_dump($validate_input);
         $pk= $_GET['index'];
         $sql = "UPDATE board 
                 SET category = '$input[category]',
@@ -107,8 +107,6 @@ function process_form($validate_input, $mode){
                     updated_date = '$datetime'
                 WHERE pk = '$pk'";
         mysqli_query($conn, $sql);
-        $pk = mysqli_insert_id($conn);
-        mysqli_close($conn);
         ?>
         <script>
             alert("게시글이 수정되었습니다.");
@@ -120,7 +118,7 @@ function process_form($validate_input, $mode){
 
 function show_form($input, $role){
     if ($role) { //pk키가 있으면 업데이트에서 넘어온것이고, 없으면 errors가 넘어온것임
-        if (array_key_exists('pk',$role)){ var_dump($role);?> 
+        if (array_key_exists('pk',$role)){ ?> 
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -132,7 +130,7 @@ function show_form($input, $role){
             </head>
             <body>
             <div class="container">
-            <form method="post" action="./update_check.php?index=<?=$role['pk']?>" enctype="multipart/form-data">
+            <form method="post" action="./update.php?index=<?=$role['pk']?>" enctype="multipart/form-data">
                 <table>
                     <tr>
                         <th>구분</th>

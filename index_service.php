@@ -5,9 +5,6 @@ include './dbconnect.php';
 function pagenation($conn, $page, $post_per_page, $mode, $condition){
     /* $post_per_page는 한페이지당 데이터 개수
         $page_num 한 블럭당 페이지 수, $page는 현재 페이지  */
-    
-    //검색적용여부
-    $filter = 0; 
 
     $page_num = 3;
     if (($mode == "GET") || ($mode =="POST" && $condition ==0)){

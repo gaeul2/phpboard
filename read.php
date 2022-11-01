@@ -2,10 +2,14 @@
 include './dbconnect.php';
 
 $index = $_GET['index'];
-$sql = "SELECT * FROM board WHERE pk = '".$index."'";
+$sql = "SELECT * FROM board WHERE pk = '$index'";
 $result = mysqli_query($conn, $sql);
 $post = mysqli_fetch_assoc($result);
-mysqli_close($conn);
+
+$hit_sql = "UPDATE board
+            SET hit = hit+1
+            WHERE pk = '$index'";
+mysqli_query($conn, $hit_sql);
 ?>
 
 <head>
@@ -17,7 +21,7 @@ mysqli_close($conn);
 </head>
 <body>
     <div class="container">
-        <form method="post" action="./update.php?index=<?=$post['pk']?>">
+        <!-- <form method="post" action="./update.php?index="> -->
             <table class="list-table-for-read-and-update">
                 <tr>
                     <th>구분</th>
@@ -51,10 +55,11 @@ mysqli_close($conn);
                     </td>
                 </tr>
             </table>
-            <button type="submit"> 수정 </button>
+            <a href="./update.php?index=<?=$post['pk']?>"><input type="button" value="수정"></a>
+            <!-- <button type="submit"> 수정 </button> -->
             <a href="./delete.php?index=<?=$post['pk']?>"><input type="button" value="삭제"></a>
             <a href="./index.php"><input type="button" value="목록"></a>
-        </form>
+        <!-- </form> -->
     </div>
 </body>
 

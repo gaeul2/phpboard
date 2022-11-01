@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD']=="GET") {
                             else{ echo "<td class='file'></td>";}?>
                         <td class="date"><?= $post['created_date'];?></td>
                         <td class="writer"><?= $post['writer'];?></td>
-                        <td class="hit"><?= $cnt;?></td>
+                        <td class="hit"><?= $post['hit'];?></td>
                     </tr>
                 </tbody>
                 <?php $cnt--;                
@@ -105,8 +105,6 @@ if ($_SERVER['REQUEST_METHOD']=="GET") {
                 <a href="./index.php?page=<?= $total_page;?>">>></a>
             <?php }?>
             
-
-
         <div class = "btn">
             <a href="./create_post.php"><button>글쓰기</button></a>
         </div>
