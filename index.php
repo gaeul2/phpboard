@@ -3,35 +3,26 @@ include './index_service.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $post_per_page= 10;
+//검색어 아무것도 입력하지 않았을때 처리위한 변수
+$show_message = "";
+
 if ($_SERVER['REQUEST_METHOD']=="GET") {
     //겟요청으로 'page'가 있다면 그 파라미터값, 없으면 1
     list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
-    = pagenation($conn, $page, $post_per_page, "GET");
+    = pagenation($conn, $page, $post_per_page, "GET", 0);
     $cnt = $total-(($page-1)*$post_per_page); 
 } else {
-    
-    $title_search= htmlentities($_POST['title_search']);
-    $writer_search= htmlentities($_POST['writer_search']);
-    $start_date = "";
-    $end_date = "";
-    if (isset($_POST['start_date'])){
-        $start_date = $_POST['start_date'];
-    } 
-    if (isset($_POST['end_date'])){
-        $end_date = $_POST['end_date'];
-    }
-    $before_validation = array($title_search,$writer_search,$start_date,$end_date);
-    $validate_result = search_validation($before_validation);
-    if (!$validate_result){
+    if (!array_filter($_POST)){ 
         list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
-        = pagenation($conn, $page, $post_per_page, "GET");
+        = pagenation($conn, $page, $post_per_page, "GET", 0);
         $cnt = $total-(($page-1)*$post_per_page);
-        $error = 1;
+        $show_message = 1;
+    } else {
+        $validate_result = search_validation($_POST);
+        list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
+        = pagenation($conn, $page, $post_per_page, "POST", $validate_result);
+        $cnt = $total-(($page-1)*$post_per_page);    
     }
-    // list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
-    // = pagenation($conn, $page, $post_per_page, "POST", $validate_result);
-    // $cnt = $total-(($page-1)*$post_per_page); 
-
 }
 
 ?>
@@ -59,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD']=="GET") {
                 <button>검색</button> 
             </form>
             <div class="message">
-                <?php if (isset($error)){echo '<p>검색어를 입력하거나 날짜를 선택해 주세요.</p>';}  ''; ?>
+                <?php if ($show_message){echo '<p>검색어를 입력하거나 날짜를 선택해 주세요.</p>';}  ''; ?>
             </div>
         </div>
         <div id ="status">Total : <?= $total?> Page : <?= $page.'/'.$total_page?> </div>
@@ -79,21 +70,21 @@ if ($_SERVER['REQUEST_METHOD']=="GET") {
 
             <?php 
             while ($post = mysqli_fetch_assoc($offset_result)) {?>
-            <tbody>
-                <tr>
-                    <td class="num"><?= $cnt;?></td>
-                    <td class="category"><?= $post['category'];?></td>
-                    <td class="title"><a href="/board/read.php?index=<?=$post['pk'];?>"><?= $post['title'] ?></a></td>
-                    <?php if (strlen($post['userfile'])>1)
-                        {echo "<td class='file'><a href='files/$post[userfile]' download><img src='./img/save-file.png' width='10px'></img></a></td>";} 
-                        else{ echo "<td class='file'></td>";}?>
-                    <td class="date"><?= $post['created_date'];?></td>
-                    <td class="writer"><?= $post['writer'];?></td>
-                    <td class="hit"><?= $post['pk'];?></td>
-                </tr>
-            </tbody>
-            <?php $cnt--;
-            }; ?>
+                <tbody>
+                    <tr>
+                        <td class="num"><?= $cnt;?></td>
+                        <td class="category"><?= $post['category'];?></td>
+                        <td class="title"><a href="/board/read.php?index=<?=$post['pk'];?>"><?= $post['title'] ?></a></td>
+                        <?php if (strlen($post['userfile'])>1)
+                            {echo "<td class='file'><a href='files/$post[userfile]' download><img src='./img/save-file.png' width='10px'></img></a></td>";} 
+                            else{ echo "<td class='file'></td>";}?>
+                        <td class="date"><?= $post['created_date'];?></td>
+                        <td class="writer"><?= $post['writer'];?></td>
+                        <td class="hit"><?= $cnt;?></td>
+                    </tr>
+                </tbody>
+                <?php $cnt--;                
+            } ?>
         </table>
         <p class = "pager">
             <?php 
@@ -123,3 +114,4 @@ if ($_SERVER['REQUEST_METHOD']=="GET") {
 </body>
 
 </html>
+<?php mysqli_close($conn);?>
