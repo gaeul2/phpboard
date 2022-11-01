@@ -1,11 +1,39 @@
 <?php include './dbconnect.php';
-include './pagenation.php';
+include './index_service.php';
 
-//겟요청으로 'page'가 있다면 그 파라미터값, 없으면 1
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $post_per_page= 10;
-list($total_page, $start_page_num, $end_page_num, $offset_result, $total)= pagenation($conn, $page,$post_per_page);
-$cnt = $total-(($page-1)*$post_per_page); 
+if ($_SERVER['REQUEST_METHOD']=="GET") {
+    //겟요청으로 'page'가 있다면 그 파라미터값, 없으면 1
+    list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
+    = pagenation($conn, $page, $post_per_page, "GET");
+    $cnt = $total-(($page-1)*$post_per_page); 
+} else {
+    
+    $title_search= htmlentities($_POST['title_search']);
+    $writer_search= htmlentities($_POST['writer_search']);
+    $start_date = "";
+    $end_date = "";
+    if (isset($_POST['start_date'])){
+        $start_date = $_POST['start_date'];
+    } 
+    if (isset($_POST['end_date'])){
+        $end_date = $_POST['end_date'];
+    }
+    $before_validation = array($title_search,$writer_search,$start_date,$end_date);
+    $validate_result = search_validation($before_validation);
+    if (!$validate_result){
+        list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
+        = pagenation($conn, $page, $post_per_page, "GET");
+        $cnt = $total-(($page-1)*$post_per_page);
+        $error = 1;
+    }
+    // list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
+    // = pagenation($conn, $page, $post_per_page, "POST", $validate_result);
+    // $cnt = $total-(($page-1)*$post_per_page); 
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +49,19 @@ $cnt = $total-(($page-1)*$post_per_page);
 
 <body>
     <div class="container">
-        <!-- 이건 일단 나중에
-            <div class ="search-box">
-            </div> -->
+        <!--검색기능-->
+        <div class ="search-box">
+            <form method="post" action="<?=$_SERVER['PHP_SELF']?>">
+                제목 <input type="text" name="title_search">
+                작성자 <input type="text" name="writer_search">
+                작성일<input type="date" name="start_date">
+                ~ <input type="date" name="end_date">
+                <button>검색</button> 
+            </form>
+            <div class="message">
+                <?php if (isset($error)){echo '<p>검색어를 입력하거나 날짜를 선택해 주세요.</p>';}  ''; ?>
+            </div>
+        </div>
         <div id ="status">Total : <?= $total?> Page : <?= $page.'/'.$total_page?> </div>
         <table class="list-table">
             <thead>
