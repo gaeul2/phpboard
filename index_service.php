@@ -4,7 +4,7 @@ include './dbconnect.php';
 /* index.php 페이지에서 페이지네이션을 위한 함수*/
 function pagenation($conn, $page, $post_per_page, $mode, $condition){
     /* $post_per_page는 한페이지당 데이터 개수
-        $page_num 한 블럭당 페이지 수, $page는 현재 페이지  */
+        $page_num 한 블럭에 보일 페이지 수, $page는 현재 페이지  */
 
     $page_num = 3;
     if (($mode == "GET") || ($mode =="POST" && $condition ==0)){
@@ -77,14 +77,14 @@ function pagenation($conn, $page, $post_per_page, $mode, $condition){
         $offset_result = mysqli_query($conn, $offset_sql);
     }
     
-    // mysqli_close($conn);
-
     return array($total_page, $start_page_num, $end_page_num, $offset_result, $total);
 
 }
 
-/* index.php 페이지에서 검색 위한 함수*/
+
+/* index.php 페이지에서 검색어 유효성검사 위한 함수*/
 function search_validation($post_data){
+    $today = date('Y-m-d');
     $title_search = $writer_search= $start_date = $end_date = "";
     if (isset($post_data['title_search'])){
         $title_search=htmlentities($post_data['title_search']);
@@ -93,9 +93,12 @@ function search_validation($post_data){
     if (isset($post_data['writer_search'])){
         $writer_search= htmlentities($post_data['writer_search']);
     } 
-    
+
     if (isset($post_data['start_date'])){
         $start_date = $post_data['start_date'];
+        if($start_date > $today){
+            $start_date = date('Y-m-d H:i:s');
+        }
     } 
 
     if (isset($post_data['end_date'])){
