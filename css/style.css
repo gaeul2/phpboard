@@ -6,6 +6,7 @@ body{
 .container{
     margin: 5% auto;
     width: 90%;
+    background-color: #b8dcfc;
 }
 .message-box p{
     width: 90%;
@@ -155,19 +156,41 @@ body{
     color:red;
 }
 
+/* 글쓰기 페이지 */
+.create-or-update-table{
+    border-collapse: collapse;
+    margin : 0 auto;
+    width : 90%;
+    background-color: bisque;
+    border: 2px solid black;
+}
 
-
+.create-or-update-table tr th{
+    width: 14%;
+    height: 38px;
+    background-color: rgb(73 215 158 / 63%);
+    border-right: 2px solid black;
+    border-bottom: 1px solid gray;
+}
+.create-or-update-table tr td{
+    padding: 5px 0 5px 18px;
+    border-bottom: 1px solid gray;
+}
+.select-box{
+    width: 200px;
+    height: 4vh;
+    font-size: 14px;
+    color: gray;
+}
 /* 조회페이지 css */
-.list-table-for-read-and-update{
+.post_table{
+    border-collapse: collapse;
     width : 900px;
-}
-
-.list-table-for-read-and-update{
     border: 1px solid rgb(0, 0, 0);
-    border-block: 1px solid rgb(0, 0, 0);
 }
 
-.list-table-for-read-and-update tr th{
+
+.post_table tr th{
     height:40px;
     font-weight: bold;
     font-size: 17px;

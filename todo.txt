@@ -1,15 +1,10 @@
-
-
-조회수 - 안되는거 고쳐보기
+걍 if문으로 selected checked 넣자.
 
 1. create_ok.php 
    
-    - 제목 길이제한
+    - 제목 길이제한 
     - 내용 최소길이 
    
-
-
-
 
 validate : 라디오, 체크박스 선택안했을때 null값 넘어오는데 그걸 잡아내질 못함.
 
@@ -26,3 +21,25 @@ process_form() 에서 뭔가 잘못됐을때 처리
 
 - 날짜 오늘날짜와 비교하여 시작날, 끝날 제한하기
 시작날>끝날 이것도 제한하기
+
+
+// if ($_SERVER['REQUEST_METHOD']=="GET") {
+    //겟요청으로 'page'가 있다면 그 파라미터값, 없으면 1
+    // list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
+    // = pagenation($conn, $page, $post_per_page, "GET", 0);
+    // $cnt = $total-(($page-1)*$post_per_page); 
+// } else {
+//     if (!array_filter($_POST)){ 
+//         //GET방식으로 요청할때와 마찬가지로 전체 게시글을 보여줌.
+//         list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
+//         = pagenation($conn, $page, $post_per_page, "GET", 0);
+//         $cnt = $total-(($page-1)*$post_per_page);
+//         //메세지 보여주기위해 $show_message에 할당
+//         $show_message = 1;
+//     } else {
+//         $validate_result = search_validation($_POST);
+//         list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
+//         = pagenation($conn, $page, $post_per_page, "POST", $validate_result);
+//         $cnt = $total-(($page-1)*$post_per_page);    
+//     }
+// }

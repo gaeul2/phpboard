@@ -1,7 +1,8 @@
 <?php
-include './dbconnect.php';
-include './create_check.php';
+include_once './dbconnect.php';
+include './create_update_service.php';
 
+include './next.php';
 
 if ($_SERVER['REQUEST_METHOD']=="POST"){
     //validate_form()으로 검사
@@ -14,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
         process_form($input, 'create');
     }
 } else {
-    show_form(0, 0);
+    // show_form(0, 0);
+    form(0, 0);
 }
 ?>

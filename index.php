@@ -1,4 +1,5 @@
-<?php include './dbconnect.php';
+<?php 
+include_once './dbconnect.php';
 include './index_service.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
