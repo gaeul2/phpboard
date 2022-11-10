@@ -10,6 +10,7 @@ $show_message : 검색어 아무것도 입력하지 않았을때 처리위한 �
 $show_button : 검색했을때 전체게시글 목록으로 돌아오는 버튼을 보여주기 위한 변수
 */
 $show_message = $show_button =$condition= 0;
+
 if($_SERVER['REQUEST_METHOD']=="POST"){
     if (!array_filter($_POST)){
         $show_message = 1;
@@ -22,24 +23,6 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
 list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
 = pagination($conn, $page, $post_per_page, $condition);
 $cnt = $total-(($page-1)*$post_per_page);
-// if($_SERVER['REQUEST_METHOD']=="GET"){ 
-//     //겟요청으로 'page'가 있다면 그 파라미터값, 없으면 1
-//     list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
-//     = pagination($conn, $page, $post_per_page, 0);
-//     $cnt = $total-(($page-1)*$post_per_page);
-// } else{
-//     /* $_POST배열에 값이들어있지 않으면 검색어 입력안한것. 
-//     * 에러메세지 div안에 p태그 드러나도록 $show_message에 값 할당*/
-//     if (!array_filter($_POST)){ 
-//         $show_message = 1;
-//     }
-//     $validate_result = search_validation($_POST);
-//     list($total_page, $start_page_num, $end_page_num, $offset_result, $total)
-//     = pagination($conn, $page, $post_per_page, $validate_result);
-//     $cnt = $total-(($page-1)*$post_per_page); 
-//     $show_button = 1;
-// }
-
 ?>
 
 <!DOCTYPE html>
