@@ -1,28 +1,23 @@
 <?php
 include './dbconnect.php';
 include './create_update_service.php';
+include './sql_service.php';
 
 $post_pk = $_GET['index'];
-$sql = "SELECT * FROM board WHERE pk = '$post_pk'";
-$result= mysqli_query($conn, $sql);
-$post = mysqli_fetch_assoc($result);
 
-include './next.php';
+$post = find_pk_one($conn,$post_pk);
+
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     //보여주기
-    form($post, 'update');
-    // show_form(0,$post);
-
+    show_form($post, 'update','글 수정');
+} else {
+    list($input, $errors)= validate_form();
+    
+    if ($errors) {
+        show_form($input, $errors,'오류 수정');
     } else {
-        echo"이곳";
-        category_html(0, "errors");
-        // list($input, $errors)= validate_form();
-        //     if ($errors) {
-        //         // form($input, $errors);
-        //         // show_form($input, $errors);
-        //     } else {
-        //         process_form($input, 'update');
-        //     }
+        process_form($input, 'update');
+    }
 }
 

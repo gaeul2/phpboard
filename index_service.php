@@ -1,5 +1,7 @@
 <?php
 include './dbconnect.php';
+include './sql_service.php';
+
 /*  pagination() : index.php페이지에서 페이지를 나눠 보여줄수 있도록 값들을 반환하는 함수
  *  search_validation() : 입력된 검색어가 빈값인지, html entity가 있는지 확인,
  *                       선택된 날짜들을 유효하게 바꿔주어
@@ -9,17 +11,15 @@ include './dbconnect.php';
  */
 
 
-
 /* index.php 페이지에서 페이지네이션을 위한 함수*/
 function pagination($conn, $page, $post_per_page, $condition){
     /* $post_per_page는 한페이지당 데이터 개수
-        $page_num 한 블럭에 보일 페이지 수, $page는 현재 페이지  */
+        $block_num 보여줄 블럭수, $page는 현재 페이지  */
 
-    $page_num = 3;
+    $block_num = 3;
+    
     if (!$condition){
-        $select_all_sql = "SELECT * FROM board";
-        $select_all_result = mysqli_query($conn, $select_all_sql);
-        $total = mysqli_num_rows($select_all_result);
+        $total= select_all($conn);
     } else {
         //입력받은 검색조건을 문장화
         $where_sentence = make_where($condition);
@@ -27,18 +27,15 @@ function pagination($conn, $page, $post_per_page, $condition){
         $search_sql_result = mysqli_query($conn, $search_sql);
         $total = mysqli_num_rows($search_sql_result);
     }
-    
+
     //전체 페이지수 = 전체데이터 / 페이지당 데이터 개수, ceil: 올림값, floor: 내림값
     $total_page = ceil($total/$post_per_page);
 
-    //전체 블록개수 = 전체페이지 수 / 블럭당 페이지 수
-    $total_block = ceil($total_page/$page_num);
-
     //현재 블럭 번호 = 현재 페이지 번호 / 블럭 당 페이지 수
-    $now_block = ceil($page / $page_num);
+    $now_block = ceil($page / $block_num);
 
     //블럭 당 시작 페이지 번호 = (해당글 블럭번호 -1) * 블럭당 페이지 수 + 1;
-    $start_page_num = ($now_block -1) * $page_num +1;
+    $start_page_num = ($now_block -1) * $block_num +1;
 
     //데이터가 0개인경우 페이지는 1이 꼭 있도록
     if($start_page_num <= 0){
@@ -46,7 +43,7 @@ function pagination($conn, $page, $post_per_page, $condition){
     };
 
     //블럭당 마지막 페이지 번호 = 현재 블럭 번호 * 블럭 당 페이지 수 
-    $end_page_num = $now_block * $page_num;
+    $end_page_num = $now_block * $block_num;
 
     //페이지번호의 마지막 번호가 전체 페이지를 넘지 않도록.
     if($end_page_num > $total_page){
@@ -65,7 +62,7 @@ function pagination($conn, $page, $post_per_page, $condition){
         $offset_sql = "SELECT * FROM board WHERE $where_sentence ORDER BY pk desc LIMIT $start_post_num, $post_per_page ";
         $offset_result = mysqli_query($conn, $offset_sql);
     }
-    
+
     return array($total_page, $start_page_num, $end_page_num, $offset_result, $total);
 
 }
@@ -96,13 +93,13 @@ function search_validation($post_data){
         $end_date = $post_data['end_date'];
     }
 
-    $before_validation = array($title_search, $writer_search, $start_date, $end_date);
+    $after_validation = array($title_search, $writer_search, $start_date, $end_date);
     $name = array('title','writer','start_date','end_date');
     
     $condition = array();
     for ($i=0; $i<4; $i++){
-        if ($before_validation[$i] != ""){
-            $condition[$name[$i]] = $before_validation[$i];
+        if ($after_validation[$i] != ""){
+            $condition[$name[$i]] = $after_validation[$i];
         }
     }
     if (empty($condition)){

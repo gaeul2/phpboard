@@ -3,10 +3,10 @@
 1. create_ok.php 
    
     - 제목 길이제한 
+    - 작성자 길이제한
     - 내용 최소길이 
    
-
-validate : 라디오, 체크박스 선택안했을때 null값 넘어오는데 그걸 잡아내질 못함.
+시간대 변경해라!!! 저장이 실제시간과 다르구나
 
 나중에 input type=text, textarea에 required 넣기
 

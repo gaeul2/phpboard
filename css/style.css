@@ -4,9 +4,8 @@ body{
 }
 /* 메인페이지 css */
 .container{
-    margin: 5% auto;
+    margin: 7% auto;
     width: 90%;
-    background-color: #b8dcfc;
 }
 .message-box p{
     width: 90%;
@@ -73,7 +72,7 @@ body{
     border-right: 2px solid grey;
     border-bottom: 1px solid #ccc; 
     height : 20px;
-    font-size: 14px;
+    font-size: 16px;
     background-color:floralwhite
 }
 .lower-wrapper{
@@ -98,7 +97,7 @@ body{
     border-radius: 7px;
     background-color: rgb(174 218 233 / 60%);
 }
-/*현재페이지 번호에만 css주기 js 써야할듯*/
+
 .create-btn{
     width: 81px;
     height: 39px;
@@ -151,25 +150,21 @@ body{
     width: 80px;
     text-align: center;
 }
-.test{
-    margin-top : 50px;
-    color:red;
-}
 
 /* 글쓰기 페이지 */
 .create-or-update-table{
     border-collapse: collapse;
     margin : 0 auto;
     width : 90%;
-    background-color: bisque;
-    border: 2px solid black;
+    background-color: white;
+    border: 2px solid #085d83;
 }
 
 .create-or-update-table tr th{
     width: 14%;
-    height: 38px;
-    background-color: rgb(73 215 158 / 63%);
-    border-right: 2px solid black;
+    height: 44px;
+    background-color: #6cb7da;
+    border-right: 2px solid #085d83;
     border-bottom: 1px solid gray;
 }
 .create-or-update-table tr td{
@@ -177,22 +172,134 @@ body{
     border-bottom: 1px solid gray;
 }
 .select-box{
+    font-size: 16px;
     width: 200px;
-    height: 4vh;
-    font-size: 14px;
+    height: 32px;
+    color: black;
+}
+#unselect{
     color: gray;
+    font-size: 16px;
+}
+
+.writer-input{
+    width: 370px;
+    height: 25px;
+    font-size: 16px;
+}
+.detail-option-wrapper{
+    display: flex;
+    width: 350px;
+}
+.detail-option-area{
+    width: 90px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    margin-right: 12px;
+}
+.question-type-wrapper{
+    display: flex;
+    width: 375px;
+    font-size: 16px;
+    justify-content: flex-start;
+}
+.question-type-area{
+    width: 97px;
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 3px;
+}
+.title-input{
+    width: 98%;
+    height: 28px;
+    font-size: 16px;
+}
+.content-input{
+    margin: 1% 0;
+    width: 98%;
+    resize: none;
+    font-size: 18px;
+}
+
+.lower-btn{
+    width: 90%;
+    margin: 15px auto 0 auto;
+    text-align: end;
+}
+
+.button{
+    width: 65px;
+    height: 37px;
+    border-radius: 6px;
+    background-color: #6cb7daa1;
+    font-weight: 400;
+    color: black;
+    border: 2px solid #085d83;
+    margin-left: 10px;
+    font-size: 17px;
+}
+.error-message{
+    width: 90%;
+    margin: 0 auto;
+    color: #ed0000;
+    font-size: 19px;
+    font-weight: 700;
 }
 /* 조회페이지 css */
 .post_table{
     border-collapse: collapse;
-    width : 900px;
-    border: 1px solid rgb(0, 0, 0);
+    margin : 0 auto;
+    width : 90%;
+    background-color: white;
+    border: 2px solid #00062d;
+    font-size: 16px;
 }
 
-
 .post_table tr th{
-    height:40px;
-    font-weight: bold;
     font-size: 17px;
-    width: 100px;
+    width: 14%;
+    height: 44px;
+    background-color: #006564;
+    border-right: 2px solid #1b384e;
+    border-bottom: 1px solid #00062d;
+    color: white;
+}
+
+.post_table tr td{
+    font-size: 17px;
+    padding: 5px 0 5px 18px;
+    border-bottom: 1px solid gray;
+    background-color: #eadfcdbd;
+}
+
+.content-read{
+    width: 96%;
+    margin: 2% 0;
+}
+.download-btn{
+    width: 80px;
+    height: 32px;
+    font-size: 15px;
+    margin-left: 20px;
+    background-color: #c3c3c3;
+    border-radius: 7px;
+    border-color: gray;
+}
+.read-lower-wrapper{
+    width: 90%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: flex-end;
+}
+.read-lower-wrapper a input{
+    width: 61px;
+    font-size: 16px;
+    height: 35px;
+    margin-left: 14px;
+    border-radius: 5px;
+    background-color: #00656494;
+    border: 1px solid #00062d;
+    color: white;
+    font-weight: bold;
 }
