@@ -47,7 +47,7 @@ $cnt = $total-(($page-1)*$post_per_page);
                 ~ <input type="date" name="end_date">
                 <button>검색</button>
             </form>
-            <?= ($show_button)? '<a href="/board"><input type="button" value="전체게시글 보기"></a>':'' ?>
+            <?= ($show_button)? '<a href="/board"><input type="button" value="돌아가기" style="width:70px; border-radius: 7px;"></a>':'' ?>
         </div>
         <div class="message-box">
             <?php if ($show_message){echo '<p>검색어를 입력하거나 날짜를 선택해 주세요.</p>';}  ''; ?>
