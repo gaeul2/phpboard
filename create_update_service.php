@@ -210,7 +210,7 @@ function show_form($input, $errors, $title){?>
                 </tr>
             </table>
             <div class = "lower-btn">
-            <input type="submit" value="저장" class="button">
+            <input type="submit" value="<?= ($errors=='update')?'수정' :'저장'?>" class="button">
             <a href=<?=($errors=='update')? "./read.php?index=$input[pk]" :"./index.php"?>><input type="button" value="취소" class="button"></a>
             </div>
         </form>
