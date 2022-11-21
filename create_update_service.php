@@ -1,6 +1,5 @@
 <?php
 include_once './dbconnect.php';
-include './validate.php';
 
 function validate_input($input_data, $keyword){
     $input = "";
